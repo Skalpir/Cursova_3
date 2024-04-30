@@ -2,12 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
+const dirname = require("path");
+const fileURLToPath = require("url");
+//const ___dirname = dirname(fileURLToPath(import.meta.url))
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Routes
 app.use('/api/users', userRoutes);
