@@ -4,12 +4,20 @@ mongoose.connect('mongodb://localhost:27017/hospital', { useNewUrlParser: true, 
 
 // Схема для пациентов
 const patientSchema = new mongoose.Schema({
+    nickname: String, // почта или какой нить уникальный индефикатор, хотя никнейм звутчи ТУПО лучше юзать случайные числа для ников юзеров
     firstName: String,
     lastName: String,
     dateOfBirth: Date,
     gender: String,
     contactInfo: String,
-    medicalHistory: String
+    medicalHistory: {
+        pastIllnesses: [String],
+        surgeries: [String],
+        medications: [String],
+        allergies: [String],
+        // Другие поля
+    },
+    account_id : String
 });
 
 // Схема для врачей

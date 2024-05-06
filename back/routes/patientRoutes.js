@@ -2,24 +2,32 @@
 
 const express = require('express');
 const router = express.Router();
+const Patient = require("../services/user")
 
-// Маршрут для создания нового пациента
+// Маршрут для создания нового пациента ( пациент создаеться при аккаунте  ЭТО уже не надо)
 router.post('/', (req, res) => {
     // Логика создания нового пациента
 });
 
 // Маршрут для получения списка всех пациентов
 router.get('/', (req, res) => {
+
     // Логика получения списка всех пациентов
 });
 
 // Маршрут для получения информации о конкретном пациенте
 router.get('/:id', (req, res) => {
+    
     // Логика получения информации о конкретном пациенте
 });
 
 // Маршрут для обновления информации о пациенте
-router.put('/:id', (req, res) => {
+router.patch('/:id', (req, res) => {
+    console.log(req.params)
+    res.send (Patient.updatePatientInfo(req.params.id,req.body,res))
+    //res.send("ok")
+
+
     // Логика обновления информации о пациенте
 });
 

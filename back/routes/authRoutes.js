@@ -5,11 +5,13 @@ const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 var passport = require('passport');
 const bodyParser = require('body-parser');
+const auth = require('../services/auth');
+
 
 
 router.post('/register', (req, res, next) => {
     console.log(req.body);
-  
+    auth.newUser(req,res)
   });
 
   router.post('/login', passport.authenticate('local'), (req, res) => {

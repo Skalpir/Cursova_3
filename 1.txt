@@ -107,3 +107,22 @@ app.js: Это главный файл вашего приложения, где
 Выход из системы
 Обновление информации о пользователе
 Удаление учетной записи
+
+
+
+{
+"nickname": "user",
+"firstName": "Ivanov",
+"lastName": "Ivan",
+"dateOfBirth": "2024-05-06",
+"gender": "male",
+"contactInfo": "+3805421456",
+"medicalHistory": 
+{
+"pastIllnesses": ["none"],
+"surgeries": ["none"],
+"medications": ["tablet 1", "tablet2"],
+"allergies": ["preparat1","preparat2"]
+}
+
+}
