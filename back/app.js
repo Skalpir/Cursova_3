@@ -4,14 +4,36 @@ const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
 const dirname = require("path");
 const fileURLToPath = require("url");
+var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 //const ___dirname = dirname(fileURLToPath(import.meta.url))
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+var dbconnection
+function connectionToDb (cb) {
+  MongoClient
+  .connect(uri)
+  .then((client) => { 
+    console.log('connect to db'); 
+    dbconnection = client.db(); 
+    return cb();})
+    .catch((err) => {return err}) }
+
+mongoose.connect('mongodb://127.0.0.1:27017/hospital')
+
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
 
 // Routes
 app.use('/api/users', userRoutes);
