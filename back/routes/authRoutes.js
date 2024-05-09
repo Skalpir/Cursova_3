@@ -34,6 +34,34 @@ router.post('/register', (req, res, next) => {
     });
   });
 
+
+  //принимает username из body в поле usename
+  router.post('/deleteOne', async (req, res, next) => {
+    try {
+      // Проверяем, есть ли пользователь
+      if (!req.user) {
+        res.send('User not found');
+        return;
+      }
+  
+      // Удаляем пользователя
+      await Account.deleteOne({ username: req.user.username });
+  
+      // Разлогиниваем пользователя
+      req.logout();
+  
+      // Сохраняем сессию (если используется сессионное хранилище)
+      await req.session.save();
+  
+      // Если используется Passport, разлогиниваем пользователя
+      passport.authenticate('local')(req, res, () => {
+        res.send('User deleted');
+      });
+    } catch (error) {
+      res.send(error);
+    }
+  });
+
 // Определение маршрутов
 router.get('/', (req, res) => {
     res.send("meow")

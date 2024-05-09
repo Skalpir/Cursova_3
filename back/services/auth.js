@@ -56,10 +56,37 @@ const auth = (res,req) => {
 
 const login = (res,req) => {}
 const logout = (res,req) => {}
+const deleteOne = async (res,req) => 
+{
+    try {
+        // Проверяем, есть ли пользователь
+        if (!req.user) {
+          res.send('User not found');
+          return;
+        }
+    
+        // Удаляем пользователя
+        await Account.deleteOne({ username: req.user.username });
+    
+        // Разлогиниваем пользователя
+        req.logout();
+    
+        // Сохраняем сессию (если используется сессионное хранилище)
+        await req.session.save();
+    
+        // Если используется Passport, разлогиниваем пользователя
+        passport.authenticate('local')(req, res, () => {
+          res.send('User deleted');
+        });
+      } catch (error) {
+        res.send(error);
+      }
+}
 
 module.exports = {
     newUser: newUser,
     auth: auth,
     login: login,
-    logout: logout
+    logout: logout,
+    deleteOne : deleteOne
 };
