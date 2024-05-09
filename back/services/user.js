@@ -12,7 +12,7 @@ const updateById = async (req,body, res) =>{
     let = account_id = req;
     console.log(req);
     let = account_id = account_id.slice(1); 
-    const updatedFields = body.body;
+    const updatedFields = body;
     console.log(updatedFields)
     let ObjectUserId;
     try{ 

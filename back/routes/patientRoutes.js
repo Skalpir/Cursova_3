@@ -23,8 +23,9 @@ router.get('/:id', (req, res) => {
 
 // Маршрут для обновления информации о пациенте
 router.patch('/:id', (req, res) => {
-    console.log(req.params)
-    res.send (Patient.updatePatientInfo(req.params.id,req.body,res))
+    //console.log(req.params)
+    //console.log(req.body)
+    Patient.updatePatientInfo(req.params.id,req.body,res) // короче передавать рес, рек нельзя. Надо передавать конкретные части в выделеные ячейки и принять их там, тогда будет работать иначе андефаинд
     //res.send("ok")
 
 
