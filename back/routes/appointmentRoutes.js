@@ -7,25 +7,32 @@ const Appointments = require("../services/appointment")
 
 // Маршрут для создания нового приема
 router.post('/', (req, res) => {
-    console.log("ti kotik")
+    //console.log("ti kotik")
 
 
     patient_id =req.body.patient_id
     doctor_id = req.body.doctor_id
-    time=req.body.time
+    time=req.body.dataTime
     procedures = req.body.procedures
     Appointments.createNewAppoiment(patient_id,doctor_id,time,procedures, res)
-    console.log("ya kotik")
+    //console.log("ya kotik")
     // Логика создания нового приема
 });
 
-// Маршрут для получения списка всех приемов
-router.get('/', (req, res) => {
+// Маршрут для получения списка всех приемов для конкретног врача
+router.get('/doctor', (req, res) => {
+    some_id=req.body.id
+    Appointments.infoAboutAppuiments(some_id,res)
+
+
     // Логика получения списка всех приемов
 });
 
-// Маршрут для получения информации о конкретном приеме
-router.get('/:id', (req, res) => {
+// Маршрут для получения информации о приемах пациента
+router.get('/patient', (req, res) => {
+    some_id=req.body.some_id
+    Appointments.infoAboutAppuiments(some_id,res)
+
     // Логика получения информации о конкретном приеме
 });
 

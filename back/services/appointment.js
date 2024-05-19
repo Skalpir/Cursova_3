@@ -103,7 +103,32 @@ const update = async (id,body, res) =>
 const remove = async (req, res) => {}
 const report = async (req,res) => {}
 
-module.exports = {
-  createNewAppoiment: create
+const info = async (some_id,res) => 
+  {
+    const Pat = new Patient();
+    try {
 
+    const Pat = await Patient.findOne({ "account_id": some_id})
+    
+    console.log(some_id)
+    //const Doc = await Doctor.find({ "doctor_id": some_id}).where("dataTime").gt(currentDateTime);  
+    } catch (error) {
+      res.send("Записи отсусвуют")
+    }
+    console.log(Pat)
+    if (Pat)
+      {
+        const currentDateTime = new Date();
+        const objectId = new mongoose.Types.ObjectId(Pat._id);
+        const result = await Appointment.find({ "patient": Pat._id })
+        //.where("dataTime").gt(currentDateTime);
+        console.log(result)
+        res.send(result)
+      }
+
+  }
+
+module.exports = {
+  createNewAppoiment: create,
+  infoAboutAppuiments : info
 };
