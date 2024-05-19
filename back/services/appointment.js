@@ -28,8 +28,8 @@ const create = async (patient_id,doctor_id,time,procedures, res) => {
         // Создаем новый объект приема с данными из запроса
         const newAppointment = new Appointment()
             newAppointment.dataTime = time;
-            console.log(Pat._id)
-            console.log(Doc._id)
+            //console.log(Pat._id)
+            //console.log(Doc._id)
             newAppointment.patient = Pat._id
             newAppointment.doctor = Doc._id
             newAppointment.status = "Awaited";
@@ -45,8 +45,8 @@ const create = async (patient_id,doctor_id,time,procedures, res) => {
                   newProcedure.duration = procedure.duration
                   newProcedure.cost = procedure.cost
                   newProcedure.description = procedure.description
-                  newProcedure.patient_id = patient_id
-                  newProcedure.doctor_id = doctor_id
+                  newProcedure.patient_id = Pat._id
+                  newProcedure.doctor_id = Doc._id
 
                   newAppointment.procedures.push(newProcedure._id)
                   await newProcedure.save()

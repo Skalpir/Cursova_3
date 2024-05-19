@@ -56,8 +56,8 @@ const procedureSchema = new mongoose.Schema({
     description: String,
     duration: Number, // продолжительность
     cost: Number,
-    doctor_id : String,
-    patient_id : String,
+    doctor_id : { type: mongoose.Schema.Types.ObjectId, ref: 'Patient' },
+    patient_id : { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' },
     status : Boolean,
 });
 
