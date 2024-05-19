@@ -47,7 +47,7 @@ const updateById = async (req,body, res) =>{
 const allUsers = async (res) =>
 {
   try {
-    const users = await User.find({});
+    const users = await Patient.find({});
     res.json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -63,7 +63,7 @@ const infoById = async (req,res) =>
   let ObjectUserId;
   try{ 
   //console.log(account_id)
-  const Object = await Patient.find({ "account_id": account_id}); // работаем
+  const Object = await Patient.find({ "doctor_id": account_id}); // работаем
   //console.log(Object)
   //ObjectUserId = Object[0]._id;
   res.json(Object);
@@ -79,7 +79,7 @@ catch (error) {
 const deleteById = async (res,req) => 
 { 
 
-  
+
 }
 
 

@@ -26,7 +26,8 @@ const doctorSchema = new mongoose.Schema({
     lastName: String,
     specialization: String,
     workSchedule: String,
-    contactInfo: String
+    contactInfo: String,
+    doctor_id: String
 });
 
 // Схема для приемов
