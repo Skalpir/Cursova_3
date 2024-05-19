@@ -35,24 +35,30 @@ const appointmentSchema = new mongoose.Schema({
     dateTime: Date,
     patient: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient' },
     doctor: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' },
-    status: String
+    status: String,
+    procedures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Procedure' }] // Поле для массива ObjectId
+
+    
 });
 
-// Схема для отчетов о приемах
+// Схема для отчетов о приемах.
 const appointmentReportSchema = new mongoose.Schema({
     appointment: { type: mongoose.Schema.Types.ObjectId, ref: 'Appointment' },
     examinationResults: String,
-    prescriptions: [String],
-    recommendations: String,
-    diagnosis: String
+    prescriptions: [String], //рецепты на таблетки
+    recommendations: String, // описание рекомендации
+    diagnosis: String // диагноз
 });
 
 // Схема для медицинских процедур
 const procedureSchema = new mongoose.Schema({
     name: String,
     description: String,
-    duration: Number,
-    cost: Number
+    duration: Number, // продолжительность
+    cost: Number,
+    doctor_id : String,
+    patient_id : String,
+    status : Boolean,
 });
 
 // Схема для отделений

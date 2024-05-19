@@ -6,18 +6,53 @@ const Schema = mongoose.Schema;
 const bodyParser = require('body-parser');
 const { Appointment } = require('../models/UserModel');
 const jsonParser = express.json();
+const {Procedure, Patient, Doctor} = require("../models/UserModel");
 
-const create = async (patient_id,doctor_id,time, res) => {
+//name: String,
+//description: String,
+//duration: Number, // продолжительность
+//cost: Number,
+//doctor_id : String,
+//patient_id : String,
+//status : Boolean,
+
+const create = async (patient_id,doctor_id,time,procedures, res) => {
     try {
-        const Pat = await Patient.find({ "account_id": patient_id});
-        const Doc = await Doctor.find({ "doctor_id": doctor_id});
+        //console.log(patient_id)
+        const Pat = await Patient.findOne({ "account_id": patient_id});
+        //console.log(Pat)
+        //console.log(doctor_id)
+        const Doc = await Doctor.findOne({ "doctor_id": doctor_id});
+        //console.log(Doc) 
 
         // Создаем новый объект приема с данными из запроса
         const newAppointment = new Appointment()
             newAppointment.dataTime = time;
+            console.log(Pat._id)
+            console.log(Doc._id)
             newAppointment.patient = Pat._id
             newAppointment.doctor = Doc._id
             newAppointment.status = "Awaited";
+
+            if (procedures != [])
+              {
+                procedures.forEach(async procedure => 
+                  {
+                  //console.log(procedure)
+                  
+                  const newProcedure = new Procedure();
+                  newProcedure.name = procedure.name;
+                  newProcedure.duration = procedure.duration
+                  newProcedure.cost = procedure.cost
+                  newProcedure.description = procedure.description
+                  newProcedure.patient_id = patient_id
+                  newProcedure.doctor_id = doctor_id
+
+                  newAppointment.procedures.push(newProcedure._id)
+                  await newProcedure.save()
+                  
+              })
+            }
 
 
             // Другие поля при необходимости
@@ -67,3 +102,8 @@ const update = async (id,body, res) =>
 };
 const remove = async (req, res) => {}
 const report = async (req,res) => {}
+
+module.exports = {
+  createNewAppoiment: create
+
+};

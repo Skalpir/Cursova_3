@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
+const appointmentRoutes = require("./routes/appointmentRoutes");
 const patientRoutes = require("./routes/patientRoutes")
 const dirname = require("path");
 const fileURLToPath = require("url");
@@ -22,6 +23,7 @@ passport.deserializeUser(Account.deserializeUser());
 
 var dbconnection;
 const { MongoClient } = require('mongodb');
+const appointment = require('./services/appointment');
 
 function connectionToDb(cb) {
     MongoClient.connect(uri)
@@ -46,6 +48,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes); // Используйте отдельный роутер для /api/auth
 app.use("/api/patient", patientRoutes);
+app.use("/api/appointment", appointmentRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
