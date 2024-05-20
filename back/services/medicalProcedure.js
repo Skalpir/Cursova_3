@@ -24,6 +24,41 @@ res.send(Proced)
 
 }
 
+const updateById = async (id,body, res) =>{
+    //console.log(id);
+    const updatedFields = body;
+    //console.log(updatedFields)
+    const NeObjectId = id;
+    const objectId = new mongoose.Types.ObjectId(NeObjectId);
+    let ObjectUserId;
+    try{ 
+    //console.log(account_id)
+    const Object = await Procedure.find({ "_id": objectId}); 
+    //console.log(Object)
+    ObjectUserId = Object[0]._id;
+  }
+    catch (error) {console.log(error)} 
+    console.log(ObjectUserId)
+    try {
+      // Найти продукт по ID и обновить его поля
+      const updatedUser = await Procedure.findByIdAndUpdate(
+        ObjectUserId,
+        { $set: updatedFields },
+        { new: true }
+      );
+  
+      if (!updatedUser) {
+        return res.status(404).json({ error: 'Procude not found' });
+      }
+  
+      res.json(updatedUser);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error updating procedur' });
+    }
+};
+
 module.exports = {
     infoById: info,
+    UpdateById : updateById,
   };

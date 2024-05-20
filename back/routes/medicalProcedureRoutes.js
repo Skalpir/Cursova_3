@@ -24,7 +24,13 @@ router.get('/:id', (req, res) => {
 });
 
 // Маршрут для обновления информации о медицинской процедуре
-router.put('/:id', (req, res) => {
+router.patch('/:id', (req, res) => {
+
+    let = id = req.params.id;
+    let = id = id.slice(1);
+    //console.log(id)
+
+    MedProcedure.UpdateById(id,req.body,res)
 
     // Логика обновления информации о медицинской процедуре
 });
