@@ -3,11 +3,11 @@
  * Run:
  *
  */
-MJ_APIKEY_PRIVATE = "90683d05d08cbbc21c2fdaf5eaf87bad"
-const mailjet = require('node-mailjet').connect(
-    process.env.MJ_APIKEY_PUBLIC,
-    process.env.MJ_APIKEY_PRIVATE
-  )
+
+const mailjet = require('node-mailjet')
+
+//mailjet.connect(process.env.MJ_APIKEY_PUBLIC,process.env.MJ_APIKEY_PRIVATE)
+
   const request = mailjet.post('send', { version: 'v3.1' }).request({
     Messages: [
       {
