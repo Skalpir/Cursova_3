@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
 
 // Маршрут для получения списка всех приемов для конкретног врача
 router.get('/doctor', (req, res) => {
-    some_id=req.body.id
+    some_id=req.body.some_id
     Appointments.infoAboutAppoimentDoctor(some_id,res)
 
 

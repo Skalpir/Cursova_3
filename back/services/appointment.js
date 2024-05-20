@@ -132,21 +132,21 @@ const infoPat = async (some_id,res) =>
 
   const infoDoc = async (some_id,res) => 
     {
-      
+      console.log(some_id)
       try {  
-      const Doc = await Doctor.findOne({ "account_id": some_id})
+      const Doc = await Doctor.findOne({ "doctor_id": some_id})
       
-      if (Pat)
+      if (Doc)
         {
-          const NeObjectId = Pat._id;
-          const currentDateTime = new Date();
+          const NeObjectId = Doc._id;
+          
           const objectId = new mongoose.Types.ObjectId(NeObjectId);
           //console.log(typeof objectId)
-          const result = await Appointment.find({ "patient": objectId })
+          const result = await Appointment.find({ "doctor": objectId })
           console.log(result)
           res.send(result)
         }
-      console.log(some_id)
+      //console.log(some_id)
       
       } catch (error) {
         res.send("Записи отсусвуют")
