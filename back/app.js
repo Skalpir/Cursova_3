@@ -57,7 +57,7 @@ app.use("/api/doctor",doctorRoutes);
 app.use("/api/appointment", appointmentRoutes);
 app.use("/api/medicalProcedure",medicalProcedureRoutes)
 app.use("/api/prescription",prescriptionRoutes);
-app.use("/mailjet",MailjetRoutes);
+//app.use("/mailjet",MailjetRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
