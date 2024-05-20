@@ -1,8 +1,10 @@
 {
   "dependencies": {
     "express": "^4.19.2",
+    "mailjet": "^0.0.1",
     "mongodb": "^6.6.0",
     "mongoose": "^8.3.3",
+    "node-mailjet": "^6.0.5",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^8.0.0",
