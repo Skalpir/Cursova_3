@@ -19,7 +19,7 @@ router.get('/:id', (req, res) => {
     let = id = id.slice(1);
     //console.log(id)
 
-    MedProcedure.infoById(id,req.body,res)
+    MedProcedure.infoById(id,res)
     // Логика обновления информации о приеме
 });
 
