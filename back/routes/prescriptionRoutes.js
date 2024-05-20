@@ -3,32 +3,32 @@
 
 const express = require('express');
 const router = express.Router();
+const prescription = require('../services/prescription');
 
 // Маршрут для создания нового рецепта 
 router.post('/', (req, res) => {
+    patient_id =req.body.patient_id
+    doctor_id = req.body.doctor_id
+    prescription.createNewAPrescrioption(patient_id,doctor_id,req.body,res)
 
-    
-    // Логика создания нового рецепта
 });
 
 // Маршрут для получения списка всех рецептов этого пациента
 router.get('/', (req, res) => {
-    // Логика получения списка всех рецептов
-});
+    patient_id =req.body.patient_id
 
-// Маршрут для получения информации о конкретном рецепте
-router.get('/:id', (req, res) => {
-    // Логика получения информации о конкретном рецепте
+    prescription.infoAboutPrescriptionPatient(patient_id,res)
 });
 
 // Маршрут для обновления информации о рецепте
-router.put('/:id', (req, res) => {
-    // Логика обновления информации о рецепте
+router.patch('/:id', (req, res) => {
+
+    let = id = req.params.id;
+    let = id = id.slice(1);
+    prescription.updateByObjectid(id,req.body,res)
+
+    
 });
 
-// Маршрут для удаления рецепта
-router.delete('/:id', (req, res) => {
-    // Логика удаления рецепта
-});
 
 module.exports = router;

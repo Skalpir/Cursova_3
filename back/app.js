@@ -6,6 +6,7 @@ const appointmentRoutes = require("./routes/appointmentRoutes");
 const patientRoutes = require("./routes/patientRoutes")
 const doctorRoutes = require("./routes/doctorRoutes")
 const medicalProcedureRoutes = require("./routes/medicalProcedureRoutes")
+const prescriptionRoutes = require("./routes/prescriptionRoutes")
 const dirname = require("path");
 const fileURLToPath = require("url");
 var mongoose = require('mongoose');
@@ -54,6 +55,7 @@ app.use("/api/patient", patientRoutes);
 app.use("/api/doctor",doctorRoutes);
 app.use("/api/appointment", appointmentRoutes);
 app.use("/api/medicalProcedure",medicalProcedureRoutes)
+app.use("/api/prescription",prescriptionRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
