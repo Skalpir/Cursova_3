@@ -103,32 +103,59 @@ const update = async (id,body, res) =>
 const remove = async (req, res) => {}
 const report = async (req,res) => {}
 
-const info = async (some_id,res) => 
+const infoPat = async (some_id,res) => 
   {
-    const Pat = new Patient();
+    
     try {
 
-    const Pat = await Patient.findOne({ "account_id": some_id})
-    
-    console.log(some_id)
     //const Doc = await Doctor.find({ "doctor_id": some_id}).where("dataTime").gt(currentDateTime);  
-    } catch (error) {
-      res.send("Записи отсусвуют")
-    }
-    console.log(Pat)
+    const Pat = await Patient.findOne({ "account_id": some_id})
+    //console.log(Pat.)
     if (Pat)
       {
+        const NeObjectId = Pat._id;
         const currentDateTime = new Date();
-        const objectId = new mongoose.Types.ObjectId(Pat._id);
-        const result = await Appointment.find({ "patient": Pat._id })
-        //.where("dataTime").gt(currentDateTime);
+        const objectId = new mongoose.Types.ObjectId(NeObjectId);
+        //console.log(typeof objectId)
+        const result = await Appointment.find({ "patient": objectId })
+        .where("dataTime").gt(currentDateTime);
         console.log(result)
         res.send(result)
       }
-
+    console.log(some_id)
+    
+    } catch (error) {
+      res.send("Записи отсусвуют")
+    }
+    
   }
+
+  const infoDoc = async (some_id,res) => 
+    {
+      
+      try {  
+      const Doc = await Doctor.findOne({ "account_id": some_id})
+      
+      if (Pat)
+        {
+          const NeObjectId = Pat._id;
+          const currentDateTime = new Date();
+          const objectId = new mongoose.Types.ObjectId(NeObjectId);
+          //console.log(typeof objectId)
+          const result = await Appointment.find({ "patient": objectId })
+          console.log(result)
+          res.send(result)
+        }
+      console.log(some_id)
+      
+      } catch (error) {
+        res.send("Записи отсусвуют")
+      }
+      
+    }
 
 module.exports = {
   createNewAppoiment: create,
-  infoAboutAppuiments : info
+  infoAboutAppoimentPatient : infoPat,
+  infoAboutAppoimentDoctor : infoDoc,
 };

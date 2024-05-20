@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
 // Маршрут для получения списка всех приемов для конкретног врача
 router.get('/doctor', (req, res) => {
     some_id=req.body.id
-    Appointments.infoAboutAppuiments(some_id,res)
+    Appointments.infoAboutAppoimentDoctor(some_id,res)
 
 
     // Логика получения списка всех приемов
@@ -31,7 +31,7 @@ router.get('/doctor', (req, res) => {
 // Маршрут для получения информации о приемах пациента
 router.get('/patient', (req, res) => {
     some_id=req.body.some_id
-    Appointments.infoAboutAppuiments(some_id,res)
+    Appointments.infoAboutAppoimentPatient(some_id,res)
 
     // Логика получения информации о конкретном приеме
 });
