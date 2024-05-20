@@ -73,11 +73,11 @@ const update = async (id,body, res) =>
     //console.log(req); 
     const updatedFields = body;
     //console.log(updatedFields)
-    let ObjectUserId;
+    let ObjectId = new mongoose.Types.ObjectId(id);;
     try{ 
     //console.log(account_id)
-    const Object = await Appointment.find({ "_id": id}); // работаем
-    //console.log(Object)
+    const Object = await Appointment.find({ "_id": ObjectId}); // работаем
+    console.log(Object)
     ObjectUserId = Object[0]._id;
   }
     catch (error) {console.log(error)} 
@@ -158,4 +158,5 @@ module.exports = {
   createNewAppoiment: create,
   infoAboutAppoimentPatient : infoPat,
   infoAboutAppoimentDoctor : infoDoc,
+  updateByObjectid : update
 };

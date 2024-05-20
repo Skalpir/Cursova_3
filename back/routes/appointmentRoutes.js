@@ -37,7 +37,12 @@ router.get('/patient', (req, res) => {
 });
 
 // Маршрут для обновления информации о приеме
-router.put('/:id', (req, res) => {
+router.patch('/:id', (req, res) => {
+    let = id = req.params.id;
+    let = id = id.slice(1);
+    //console.log(id)
+
+    Appointments.updateByObjectid(id,req.body,res)
     // Логика обновления информации о приеме
 });
 
