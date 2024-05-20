@@ -5,6 +5,7 @@ const authRoutes = require('./routes/authRoutes');
 const appointmentRoutes = require("./routes/appointmentRoutes");
 const patientRoutes = require("./routes/patientRoutes")
 const doctorRoutes = require("./routes/doctorRoutes")
+const medicalProcedureRoutes = require("./routes/medicalProcedureRoutes")
 const dirname = require("path");
 const fileURLToPath = require("url");
 var mongoose = require('mongoose');
@@ -25,6 +26,7 @@ passport.deserializeUser(Account.deserializeUser());
 var dbconnection;
 const { MongoClient } = require('mongodb');
 const appointment = require('./services/appointment');
+const medicalProcedure = require('./services/medicalProcedure');
 
 function connectionToDb(cb) {
     MongoClient.connect(uri)
@@ -51,6 +53,7 @@ app.use('/api/auth', authRoutes); // Используйте отдельный �
 app.use("/api/patient", patientRoutes);
 app.use("/api/doctor",doctorRoutes);
 app.use("/api/appointment", appointmentRoutes);
+app.use("/api/medicalProcedure",medicalProcedureRoutes)
 
 // Error handling middleware
 app.use((err, req, res, next) => {
