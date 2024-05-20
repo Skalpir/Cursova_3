@@ -11,21 +11,24 @@ router.post('/', (req, res) => {
 });
 
 
-
 // Маршрут для получения списка всех врачей
 router.get('/', (req, res) => {
     Doctor.takeInfoAboutAllDoctors(res)
     // Логика получения списка всех врачей
 });
 
+
 // Маршрут для получения информации о конкретном враче
 router.get('/:id', (req, res) => {
-    Doctor.infoAboutDoctor(res,req)
+
+
+    Doctor.infoAboutDoctor(req.params.id,res)
     // Логика получения информации о конкретном враче
 });
 
+
 // Маршрут для обновления информации о враче
-router.put('/:id', (req, res) => {
+router.patch('/:id', (req, res) => {
     Doctor.updateDoctorInfo(req.params.id,req.body,res)
     // Логика обновления информации о враче
 });

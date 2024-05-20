@@ -4,6 +4,7 @@ const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
 const appointmentRoutes = require("./routes/appointmentRoutes");
 const patientRoutes = require("./routes/patientRoutes")
+const doctorRoutes = require("./routes/doctorRoutes")
 const dirname = require("path");
 const fileURLToPath = require("url");
 var mongoose = require('mongoose');
@@ -48,6 +49,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes); // Используйте отдельный роутер для /api/auth
 app.use("/api/patient", patientRoutes);
+app.use("/api/doctor",doctorRoutes);
 app.use("/api/appointment", appointmentRoutes);
 
 // Error handling middleware

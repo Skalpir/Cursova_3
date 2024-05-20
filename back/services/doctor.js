@@ -69,17 +69,17 @@ const infoByField = async (params, res) =>
   
   };
 
-const infoById = async (req,res) =>{
+const infoById = async (id,res) =>{
     {
 
-        let = account_id = req;
+        let = account_id = id;
         //console.log(req);
-        let = account_id = account_id.slice(1); 
+        let = account_id = account_id.slice(1);
         //console.log(updatedFields)
         let ObjectUserId;
         try{ 
         //console.log(account_id)
-        const Object = await Doctor.find({ "doctor_id": account_id}); // работаем
+        const Object = await Doctor.findOne({ "doctor_id": account_id});
         //console.log(Object)
         //ObjectUserId = Object[0]._id;
         res.json(Object);
