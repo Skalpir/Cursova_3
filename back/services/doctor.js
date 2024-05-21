@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 const bodyParser = require('body-parser');
 const { Doctor } = require('../models/UserModel');
+const { sendEmail } = require('../mailjet/mailjet');
 const jsonParser = express.json();
 
 const updateById = async (req,body, res) =>{
@@ -93,6 +94,9 @@ const infoById = async (id,res) =>{
 
 const allUsers = async (res) =>
 {
+  Myname="Андрій"
+  email="andryxa1049@gmail.com"
+  sendEmail(Myname,email) 
   try {
     const users = await Doctor.find({});
     res.json(users);

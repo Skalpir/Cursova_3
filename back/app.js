@@ -29,6 +29,7 @@ var dbconnection;
 const { MongoClient } = require('mongodb');
 const appointment = require('./services/appointment');
 const medicalProcedure = require('./services/medicalProcedure');
+const {Patient, Doctor} = require("./models/UserModel")
 
 function connectionToDb(cb) {
     MongoClient.connect(uri)
@@ -58,6 +59,52 @@ app.use("/api/appointment", appointmentRoutes);
 app.use("/api/medicalProcedure",medicalProcedureRoutes)
 app.use("/api/prescription",prescriptionRoutes);
 //app.use("/mailjet",MailjetRoutes);
+
+const { Appointment } = require('./models/UserModel');
+
+// Функция для проверки условия и выполнения кода
+async function checkConditionAndExecute() {
+    try {
+        const now = new Date();
+        const twentyFourHoursLater = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+        console.log(twentyFourHoursLater)
+
+        const records = await Appointment.find({
+            dataTime: {
+                $gte: now, // Событие ещё не наступило
+                $lte: twentyFourHoursLater // До события менее 24 часов
+            }
+        });
+        console.log(records);
+
+        if (records.length > 0) {
+            records.forEach(async record =>
+                {
+                    const Pat = await Patient.findOne({ "_id": record.patient});
+                    const Doc = await Doctor.findOne({ "_id": record.doctor});
+                    MailjetRoutes.sendEmail(Pat.firstName,Pat.contactInfo)
+                    MailjetRoutes.sendEmail(Doc.firstName,Doc.contactInfo)
+
+                }
+
+
+            )
+            console.log("Есть записи с датой менее чем 24 часа до события, выполняем код...11111");
+            // Ваш код здесь
+        } 
+        else {
+            console.log("Нет записей с датой менее чем 24 часа до события, ничего не делаем.");
+        }
+    } catch (error) {
+        console.error("Ошибка при выполнении условия:", error);
+    }
+}
+
+// Запускаем выполнение функции каждые 15 минут (900000 миллисекунд)
+setInterval(checkConditionAndExecute, 900000);
+
+// Начальная проверка при запуске приложения
+checkConditionAndExecute();
 
 // Error handling middleware
 app.use((err, req, res, next) => {
