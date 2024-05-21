@@ -79,6 +79,9 @@ const prescriptionSchema = new mongoose.Schema({
     patient: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient' }
 });
 
+//Схема дежурства врачей
+const DoctorOnDuty = new moongoose.Schema({})
+
 // Экспорт схем для использования в других файлах
 module.exports = {
     Patient: mongoose.model('Patient', patientSchema),
