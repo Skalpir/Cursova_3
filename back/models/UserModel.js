@@ -36,7 +36,8 @@ const appointmentSchema = new mongoose.Schema({
     patient: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient' },
     doctor: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' },
     status: String,
-    procedures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Procedure' }] // Поле для массива ObjectId
+    procedures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Procedure' }], // Поле для массива ObjectId
+    emailStatus : { type: String, default: "no" },
 
     
 });

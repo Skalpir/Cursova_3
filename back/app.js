@@ -80,10 +80,28 @@ async function checkConditionAndExecute() {
         if (records.length > 0) {
             records.forEach(async record =>
                 {
+                    if (record.emailStatus == "no")
+                        {
                     const Pat = await Patient.findOne({ "_id": record.patient});
                     const Doc = await Doctor.findOne({ "_id": record.doctor});
-                    MailjetRoutes.sendEmail(Pat.firstName,Pat.contactInfo)
-                    MailjetRoutes.sendEmail(Doc.firstName,Doc.contactInfo)
+                    //MailjetRoutes.sendEmail(Pat.firstName,Pat.contactInfo)
+                    //MailjetRoutes.sendEmail(Doc.firstName,Doc.contactInfo)
+                    
+                    try {
+                        // Найти продукт по ID и обновить его поля
+                        const updatedUser = await Appointment.findByIdAndUpdate
+                        (
+                          record._id,
+                          { $set: {"emailStatus" : "yes"} },
+                          { new: true }
+                        );
+                    
+                        if (!updatedUser) {
+                          return res.status(404).json({ error: 'User not found' });
+                        }
+                    }
+                    catch(error){}
+                    }
 
                 }
 
