@@ -105,9 +105,44 @@ const allUsers = async (res) =>
   }
 };
 
+async function insertDoctors() {
+  const doctors = [
+      { firstName: 'John', lastName: 'Doe', specialization: 'Cardiology', workSchedule: '9am - 5pm', contactInfo: 'john.doe@example.com', doctor_id: 'DOC1', dayOnDuty: 1 }, // Понедельник
+      { firstName: 'Jane', lastName: 'Smith', specialization: 'Neurology', workSchedule: '9am - 5pm', contactInfo: 'jane.smith@example.com', doctor_id: 'DOC2', dayOnDuty: 2 }, // Вторник
+      { firstName: 'Jim', lastName: 'Brown', specialization: 'Pediatrics', workSchedule: '9am - 5pm', contactInfo: 'jim.brown@example.com', doctor_id: 'DOC3', dayOnDuty: 3 }, // Среда
+      { firstName: 'Jake', lastName: 'White', specialization: 'Orthopedics', workSchedule: '9am - 5pm', contactInfo: 'jake.white@example.com', doctor_id: 'DOC4', dayOnDuty: 4 }, // Четверг
+      { firstName: 'Julie', lastName: 'Black', specialization: 'Dermatology', workSchedule: '9am - 5pm', contactInfo: 'julie.black@example.com', doctor_id: 'DOC5', dayOnDuty: 5 }, // Пятница
+      { firstName: 'Jack', lastName: 'Green', specialization: 'Oncology', workSchedule: '9am - 5pm', contactInfo: 'jack.green@example.com', doctor_id: 'DOC6', dayOnDuty: 6 }, // Суббота
+      { firstName: 'Jill', lastName: 'Blue', specialization: 'Radiology', workSchedule: '9am - 5pm', contactInfo: 'jill.blue@example.com', doctor_id: 'DOC7', dayOnDuty: 0 }  // Воскресенье
+  ];
+
+  try {
+      await Doctor.insertMany(doctors);
+      console.log('Doctors inserted successfully');
+  } catch (error) {
+      console.error('Error inserting doctors:', error);
+  }
+}
+
+async function DoctorToday(res)
+{
+try {
+  const dayOfWeek = new Date().getDay();
+  const Object = await Doctor.findOne({ "dayOnDuty": dayOfWeek});
+  res.send(Object)
+
+  
+} catch (error) {
+  
+}
+
+}
+
 module.exports = {
     updateDoctorInfo: updateById,
     takeInfoAboutAllDoctors: allUsers,
     infoAboutDoctor : infoById,
+    add : insertDoctors,
+    getCurrentDoctor : DoctorToday
 
 };

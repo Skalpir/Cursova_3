@@ -27,7 +27,8 @@ const doctorSchema = new mongoose.Schema({
     specialization: String,
     workSchedule: String,
     contactInfo: String,
-    doctor_id: String
+    doctor_id: String,
+    dayOnDuty: Number
 });
 
 // Схема для приемов
@@ -80,7 +81,6 @@ const prescriptionSchema = new mongoose.Schema({
 });
 
 //Схема дежурства врачей
-const DoctorOnDuty = new moongoose.Schema({})
 
 // Экспорт схем для использования в других файлах
 module.exports = {

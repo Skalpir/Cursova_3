@@ -61,6 +61,7 @@ app.use("/api/prescription",prescriptionRoutes);
 //app.use("/mailjet",MailjetRoutes);
 
 const { Appointment } = require('./models/UserModel');
+const { add } = require('./services/doctor');
 
 // Функция для проверки условия и выполнения кода
 async function checkConditionAndExecute() {
@@ -132,5 +133,6 @@ app.use((err, req, res, next) => {
 
 // Start the server
 app.listen(PORT, () => {
+    //add()
     console.log(`Server is running on port ${PORT}`);
 });

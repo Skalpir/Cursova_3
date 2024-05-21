@@ -11,6 +11,13 @@ router.post('/', (req, res) => {
 });
 
 
+//Получить кто сегодня на работе
+router.get("/getCurrentDoctor",(req,res) => 
+    {
+        Doctor.getCurrentDoctor(res)
+
+    })
+
 // Маршрут для получения списка всех врачей
 router.get('/', (req, res) => {
     Doctor.takeInfoAboutAllDoctors(res)
