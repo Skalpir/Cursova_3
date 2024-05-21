@@ -1,9 +1,17 @@
+import React from 'react';
 import PatientDTO from "../models/PatientDTO";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Session from "./Session";
 
 function PatientCard({ patient }) {
   const patientDTO = PatientDTO.fromModel(patient);
   const navigate = useNavigate();
+  const user = Session.getUserData();
+  const doctor = { name: user.name, id: user.id };  // Добавляем id врача
+
+  const handleScheduleAppointment = () => {
+    navigate('/schedule-appointment', { state: { patient: patientDTO, doctor } });
+  };
 
   return (
     <div className="card mb-3">
@@ -76,7 +84,7 @@ function PatientCard({ patient }) {
             </div>
           </div>
           <div className="col-sm-4 d-flex flex-column justify-content-center">
-            <button className="btn btn-primary mb-3 flex-grow-1">Назначить встречу</button>
+            <button className="btn btn-primary mb-3 flex-grow-1" onClick={handleScheduleAppointment}>Назначить встречу</button>
             <button className="btn btn-secondary flex-grow-1" onClick={() => navigate(`/patients/${patientDTO.account_id}`, { state: { patient } })}>Редактировать</button>
           </div>
         </div>

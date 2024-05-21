@@ -13,7 +13,7 @@ const Session = {
         return {
             name: 'John Doe',
             email: 'jd@noname.com',
-            role: 'doctor',
+            role: 'patient',
         }
         if (!Session.isLogged()) {
             return null

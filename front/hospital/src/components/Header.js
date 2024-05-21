@@ -30,11 +30,6 @@ function Header() {
                     Appointments
                   </a>
                 </li>
-                <li>
-                  <a href="/procedures" class="nav-link px-2 text-white">
-                    Medical Procedures
-                  </a>
-                </li>
               </>
             )}
             {!!user && user.role === "doctor" && (
@@ -56,7 +51,7 @@ function Header() {
             {!!user ? (
               <div class="d-flex align-items-center">
                 <span class="me-2 text-white">{user.name}</span>
-                <a href="#" class="btn btn-outline-light me-2">
+                <a href="/profile" class="btn btn-outline-light me-2">
                   Profile
                 </a>
                 <a href="#" class="btn btn-warning">
