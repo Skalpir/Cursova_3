@@ -27,7 +27,6 @@ const doctorSchema = new mongoose.Schema({
     specialization: String,
     workSchedule: String,
     contactInfo: String,
-    doctor_id: String,
     dayOnDuty: Number
 });
 
@@ -36,7 +35,7 @@ const appointmentSchema = new mongoose.Schema({
     dateTime: Date,
     patient: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient' },
     doctor: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' },
-    status: { type: String, default: "open" },
+    status: String,
     procedures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Procedure' }], // Поле для массива ObjectId
     emailStatus : { type: String, default: "no" },
 

@@ -1,10 +1,10 @@
+import React, { useState, useEffect } from 'react';
 import AppWrapper from "../containers/AppWrapper";
 import PatientAppointmentCard from "../components/PatientAppointmentCard";
 import PatientAddAppointment from "../components/PatientAddAppointment";
-import { AppointmentDTO } from "../models/AppointmentDTO";
 import Session from "../components/Session";
 import Calendar from 'react-calendar';
-
+import Api from 'easy-fetch-api';
 
 const appointmentsGridStyle = {
     display: 'grid',
@@ -12,127 +12,38 @@ const appointmentsGridStyle = {
     gap: '20px',
     justifyItems: 'center',
     padding: '20px'
-  };
+};
   
-  const cardContainerStyle = {
+const cardContainerStyle = {
     width: '100%',
     maxWidth: '300px'
-  };
+};
 
 const PatientAppointmentsPage = () => {
-  const appointments = [
-    {
-      dateTime: "2024-05-21T12:00:00",
-      patient: "1",
-      doctor: "1",
-      status: "scheduled",
-      procedures: [
-        {
-          name: "checkup",
-          description: "annual checkup",
-          duration: 60,
-          cost: 100,
-          doctor_id: "1",
-          patient_id: "1",
-          status: false,
-        },
-        {
-          name: "vaccination",
-          description: "flu shot",
-          duration: 15,
-          cost: 50,
-          doctor_id: "1",
-          patient_id: "1",
-          status: false,
-        },
-      ],
-    },
-    {
-      dateTime: "2024-05-26T12:00:00",
-      patient: "1",
-      doctor: "2",
-      status: "scheduled",
-      procedures: [
-        {
-          name: "checkup",
-          description: "annual checkup",
-          duration: 60,
-          cost: 100,
-          doctor_id: "2",
-          patient_id: "1",
-          status: false,
-        },
-      ],
-    },
-    {
-      dateTime: "2024-05-29T12:00:00",
-      patient: "2",
-      doctor: "1",
-      status: "scheduled",
-      procedures: [
-        {
-          name: "checkup",
-          description: "annual checkup",
-          duration: 60,
-          cost: 100,
-          doctor_id: "1",
-          patient_id: "2",
-          status: false,
-        },
-        {
-          name: "vaccination",
-          description: "flu shot",
-          duration: 15,
-          cost: 50,
-          doctor_id: "1",
-          patient_id: "2",
-          status: false,
-        },
-      ],
-    },
-    {
-        dateTime: "2024-05-30T12:00:00",
-        patient: "2",
-        doctor: "2",
-        status: "scheduled",
-        procedures: [
-            {
-            name: "checkup",
-            description: "annual checkup",
-            duration: 60,
-            cost: 100,
-            doctor_id: "2",
-            patient_id: "2",
-            status: false,
-            },
-        ],
-    }
-  ];
-
   const user = Session.getUserData();
+  const [appointments, setAppointments] = useState([]);
+  
+  const patient = user.profile;
 
-  const getPatient = () => {
-    return {
-      firstName: "John",
-      lastName: "Doe",
-      dateOfBirth: "1990-01-01",
-      gender: "male",
-      contactInfo: "123-456-7890",
-      medicalHistory: {
-        pastIllnesses: ["flu", "cold"],
-        surgeries: [],
-        medications: [],
-        allergies: [],
-      },
+  useEffect(() => {
+    const getAppointments = () => {
+      Api.setBaseUrl('http://localhost:3000');
+      Api.post({
+        url: '/api/appointment/patient',
+        data: { some_id : patient._id },
+        callback: (response) => {
+          setAppointments(response);
+        }
+      });
     };
-  };
+    getAppointments();
+  }, [patient._id]);
 
   const getEnabledDates = () => {
     return appointments.map((appointment) => new Date(appointment.dateTime));
   };
 
-  function tileDisabled({ date, view }) {
-    // Disable tiles for days that have appointments
+  const tileDisabled = ({ date, view }) => {
     if (view === 'month') {
       return getEnabledDates().some((enabledDate) =>
         date.getFullYear() === enabledDate.getFullYear() &&
@@ -140,11 +51,8 @@ const PatientAppointmentsPage = () => {
         date.getDate() === enabledDate.getDate()
       );
     }
-  }
-
-
-
-  const patient = getPatient();
+    return false;
+  };
 
   const allAppointments = [...appointments, { isAddAppointment: true }];
 
@@ -153,12 +61,10 @@ const PatientAppointmentsPage = () => {
       <h1 className="mb-4 text-center">Appointments</h1>
       <div className="container">
         <div className="row">
-        <div className="col-md-4 mb-4 d-flex align-items-stretch">
+          <div className="col-md-4 mb-4 d-flex align-items-stretch">
             <div className="card w-100">
               <div className="card-body">
-                <Calendar
-                  tileDisabled={tileDisabled}
-                />
+                <Calendar tileDisabled={tileDisabled} />
               </div>
             </div>
           </div>
@@ -173,13 +79,10 @@ const PatientAppointmentsPage = () => {
               </div>
             </div>
           ))}
-          
         </div>
       </div>
     </AppWrapper>
   );
 };
-
-
 
 export default PatientAppointmentsPage;

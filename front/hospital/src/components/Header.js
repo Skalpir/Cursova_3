@@ -57,7 +57,8 @@ function Header() {
           <div class="text-end">
             {!!user ? (
               <div class="d-flex align-items-center">
-                <span class="me-2 text-white">{user.name}</span>
+                <span class="me-2 text-white">{user.profile.firstName}</span>
+                <span class="me-2 text-white">{user.profile.lastName}</span>
                 <a href="/profile" class="btn btn-outline-light me-2">
                   Profile
                 </a>

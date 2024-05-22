@@ -40,9 +40,11 @@ router.post("/login", (req, res, next) => {
     if (err) {
       return errorResponse(res, "Invalid credentials");
     }
-
+    console.log(user);
+    console.log(err);
     req.login(user, async () => {
       populated = await Account.findOne({ username: user.username }).populate({path: 'profile', model: user.role === 'doctor' ? 'Doctor' : 'Patient'});
+      
       res.json({ success: true, user: populated });
     });
   })(req, res, next);
@@ -91,7 +93,9 @@ router.get("/", (req, res) => {
 });
 
 router.get("/profile", (req, res) => {
-  res.send("profile");
+  Account.findById(req.user._id).populate({path: 'profile', model: req.user.role === 'doctor' ? 'Doctor' : 'Patient'}).then((user) => {
+    res.json(user);
+  });
 });
 
 module.exports = router;

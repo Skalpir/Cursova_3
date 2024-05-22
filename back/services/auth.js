@@ -50,7 +50,6 @@ const newUser = (req,res) => {
             return;
         }
         try {
-          console.log(obj);
           obj.save();
         } catch (error) {
           res.status(404).json({ error: error.message });

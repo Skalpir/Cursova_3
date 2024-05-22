@@ -1,11 +1,11 @@
 import { AppointmentDTO } from "../models/AppointmentDTO";
-import { ProcedureDTO } from "../models/AppointmentDTO";
 
 function PatientAppointmentCard({ appointment }) {
   const appointmentDTO = AppointmentDTO.fromModel(appointment);
   const getDoctor = () => {
-    return appointmentDTO.doctor;
+    return appointmentDTO.doctor.firstName + ' ' + appointmentDTO.doctor.lastName;
   }
+  const dateOnly = appointmentDTO.dateTime.split('T')[0];
   
   return (
     <div className="card mb-3">
@@ -14,9 +14,9 @@ function PatientAppointmentCard({ appointment }) {
           <div className="col-sm-8">
             <div className="row mb-2">
               <div className="col-sm-4 text-right font-weight-bold">
-                Date and Time:
+                Date:
               </div>
-              <div className="col-sm-8">{appointmentDTO.dateTime}</div>
+              <div className="col-sm-8">{dateOnly}</div>
             </div>
             <div className="row mb-2">
               <div className="col-sm-4 text-right font-weight-bold">
@@ -28,9 +28,6 @@ function PatientAppointmentCard({ appointment }) {
               <h6 className="card-subtitle mb-2 mt-3 text-muted">Procedures</h6>
               {appointmentDTO.procedures.map((procedure, index) => (
                 <div key={index} className="row mb-2">
-                  <div className="col-sm-4 text-right font-weight-bold">
-                    Name:
-                  </div>
                   <div className="col-sm-8">{procedure.name}</div>
                 </div>
               ))}

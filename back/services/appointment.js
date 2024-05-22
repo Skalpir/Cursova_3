@@ -1,12 +1,12 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const bodyParser = require('body-parser');
-const { Appointment } = require('../models/UserModel');
+const bodyParser = require("body-parser");
+const { Appointment } = require("../models/UserModel");
 const jsonParser = express.json();
-const {Procedure, Patient, Doctor} = require("../models/UserModel");
+const { Procedure, Patient, Doctor } = require("../models/UserModel");
 
 //name: String,
 //description: String,
@@ -16,147 +16,108 @@ const {Procedure, Patient, Doctor} = require("../models/UserModel");
 //patient_id : String,
 //status : Boolean,
 
-const create = async (patient_id,doctor_id,time,procedures, res) => {
-    try {
-        //console.log(patient_id)
-        const Pat = await Patient.findOne({ "account_id": patient_id});
-        //console.log(Pat)
-        //console.log(doctor_id)
-        const Doc = await Doctor.findOne({ "doctor_id": doctor_id});
-        //console.log(Doc) 
+const create = async (patient_id, doctor_id, time, procedures, res) => {
+  try {
+    const Pat = await Patient.findById(patient_id);
+    const Doc = await Doctor.findById(doctor_id);
 
-        // Создаем новый объект приема с данными из запроса
-        const newAppointment = new Appointment()
-            newAppointment.dataTime = time;
-            //console.log(Pat._id)
-            //console.log(Doc._id)
-            newAppointment.patient = Pat._id
-            newAppointment.doctor = Doc._id
-            newAppointment.status = "Awaited";
+    // Создаем новый объект приема с данными из запроса
+    const newAppointment = new Appointment();
+    newAppointment.dateTime = time;
+    console.log(procedures);
+    newAppointment.patient = Pat._id;
+    newAppointment.doctor = Doc._id;
+    newAppointment.status = "Awaited";
 
-            if (procedures != [])
-              {
-                procedures.forEach(async procedure => 
-                  {
-                  //console.log(procedure)
-                  
-                  const newProcedure = new Procedure();
-                  newProcedure.name = procedure.name;
-                  newProcedure.duration = procedure.duration
-                  newProcedure.cost = procedure.cost
-                  newProcedure.description = procedure.description
-                  newProcedure.patient_id = Pat._id
-                  newProcedure.doctor_id = Doc._id
+    if (procedures != []) {
+      procedures.forEach(async (procedure) => {
+        //console.log(procedure)
 
-                  newAppointment.procedures.push(newProcedure._id)
-                  await newProcedure.save()
-                  
-              })
-            }
+        const newProcedure = new Procedure();
+        newProcedure.name = procedure.name;
+        newProcedure.duration = procedure.duration;
+        newProcedure.cost = procedure.cost;
+        newProcedure.description = procedure.description;
+        newProcedure.patient_id = Pat._id;
+        newProcedure.doctor_id = Doc._id;
 
+        newAppointment.procedures.push(newProcedure._id);
+        await newProcedure.save();
+      });
+    }
 
-            // Другие поля при необходимости
+    // Другие поля при необходимости
 
-            // Сохраняем новый прием в базе данных
-            await newAppointment.save();
+    // Сохраняем новый прием в базе данных
+    await newAppointment.save();
 
-            res.status(201).json(newAppointment); // Отправляем созданный прием в ответе
-}
-     catch (error) {
-        res.status(404).json({ error: error.message });
-    }};
-
+    res.status(201).json(newAppointment); // Отправляем созданный прием в ответе
+  } catch (error) {
+    console.error(error);
+    res.status(404).json({ error: error.message });
+  }
+};
 
 // на уровне ендпоинта будет идти разбор параметров а сюда уже будут залетать только поля и _ид обьекта
-const update = async (id,body, res) => 
-{
-    //console.log(req); 
-    const updatedFields = body;
-    //console.log(updatedFields)
-    let ObjectId = new mongoose.Types.ObjectId(id);;
-    try{ 
+const update = async (id, body, res) => {
+  //console.log(req);
+  const updatedFields = body;
+  //console.log(updatedFields)
+  let ObjectId = new mongoose.Types.ObjectId(id);
+  try {
     //console.log(account_id)
-    const Object = await Appointment.find({ "_id": ObjectId}); // работаем
-    console.log(Object)
+    const Object = await Appointment.find({ _id: ObjectId }); // работаем
     ObjectUserId = Object[0]._id;
+  } catch (error) {
+    console.log(error);
   }
-    catch (error) {console.log(error)} 
-    //console.log(ObjectUserId)
-    try {
-      // Найти продукт по ID и обновить его поля
-      const updatedUser = await Appointment.findByIdAndUpdate(
-        ObjectUserId,
-        { $set: updatedFields },
-        { new: true }
-      );
-  
-      if (!updatedUser) {
-        return res.status(404).json({ error: 'Appointment not found' });
-      }
-  
-      res.json(updatedUser);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Error updating Appointment' });
+  //console.log(ObjectUserId)
+  try {
+    // Найти продукт по ID и обновить его поля
+    const updatedUser = await Appointment.findByIdAndUpdate(
+      ObjectUserId,
+      { $set: updatedFields },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: "Appointment not found" });
     }
+
+    res.json(updatedUser);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error updating Appointment" });
+  }
 };
-const remove = async (req, res) => {}
-const report = async (req,res) => {}
+const remove = async (req, res) => {};
+const report = async (req, res) => {};
 
-const infoPat = async (some_id,res) => 
-  {
-    
-    try {
-
-    //const Doc = await Doctor.find({ "doctor_id": some_id}).where("dataTime").gt(currentDateTime);  
-    const Pat = await Patient.findOne({ "account_id": some_id})
-    //console.log(Pat.)
-    if (Pat)
-      {
-        const NeObjectId = Pat._id;
-        const currentDateTime = new Date();
-        const objectId = new mongoose.Types.ObjectId(NeObjectId);
-        //console.log(typeof objectId)
-        const result = await Appointment.find({ "patient": objectId })
-        .where("dataTime").gt(currentDateTime);
-        console.log(result)
-        res.send(result)
-      }
-    console.log(some_id)
-    
-    } catch (error) {
-      res.send("Записи отсусвуют")
-    }
-    
+const infoPat = async (some_id, res) => {
+  try {
+    const Pat = await Patient.findById(some_id);
+    const currentDateTime = new Date();
+    const active = await Appointment.find({ patient: new mongoose.Types.ObjectId(some_id) }).where("dateTime").gt(currentDateTime).populate("procedures").populate("doctor");
+    res.send(active);
+  } catch (error) {
+    res.send([]);
   }
+};
 
-  const infoDoc = async (some_id,res) => 
-    {
-      console.log(some_id)
-      try {  
-      const Doc = await Doctor.findOne({ "doctor_id": some_id})
-      
-      if (Doc)
-        {
-          const NeObjectId = Doc._id;
-          
-          const objectId = new mongoose.Types.ObjectId(NeObjectId);
-          //console.log(typeof objectId)
-          const result = await Appointment.find({ "doctor": objectId })
-          console.log(result)
-          res.send(result)
-        }
-      //console.log(some_id)
-      
-      } catch (error) {
-        res.send("Записи отсусвуют")
-      }
-      
-    }
+const infoDoc = async (some_id, res) => {
+  try {
+    const Doc = await Doctor.findById(some_id);
+    const currentDateTime = new Date();
+    const active = await Appointment.find({ doctor: new mongoose.Types.ObjectId(some_id) }).where("dateTime").gt(currentDateTime).populate("procedures").populate("patient");
+    res.send(active);
+  } catch (error) {
+    res.send([]);
+  }
+};
 
 module.exports = {
   createNewAppoiment: create,
-  infoAboutAppoimentPatient : infoPat,
-  infoAboutAppoimentDoctor : infoDoc,
-  updateByObjectid : update
+  infoAboutAppoimentPatient: infoPat,
+  infoAboutAppoimentDoctor: infoDoc,
+  updateByObjectid: update,
 };

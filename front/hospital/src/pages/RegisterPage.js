@@ -31,7 +31,6 @@ function RegistrationPage() {
       url: "/api/auth/register",
       data: formData,
     }).then((res) => {
-      console.log(res);
       if (!res.success || res.error) {
         return setError(res.error || "Ошибка регистрации");
       }
