@@ -6,36 +6,56 @@ const passportLocalMongoose = require('passport-local-mongoose');
 var passport = require('passport');
 const bodyParser = require('body-parser');
 const { Patient } = require('../models/UserModel');
+const { Doctor } = require('../models/UserModel');
+const Account = require('../models/account');
+
 const jsonParser = express.json();
 
 const newUser = (req,res) => {
-    Account.register(new Account({ username : req.body.username }), req.body.password, (err, account) => {
+
+  role = req.body.role;
+  username = req.body.username;
+  password = req.body.password;
+  let obj = {};
+  if (role === 'doctor') {
+    const newDoctor = new Doctor
+    newDoctor.firstName = "";
+    newDoctor.lastName = "";
+    newDoctor.specialization = "";
+    newDoctor.workSchedule = "";
+    newDoctor.contactInfo = "";
+    newDoctor.dayOnDuty = 0;
+    obj = newDoctor;
+  }
+  else
+  {
+    const newClient = new Patient
+    newClient.nickname = username;
+    newClient.dateOfBirth = "1990-01-01";
+    newClient.firstName = "";
+    newClient.lastName = "";
+    newClient.gender = "male";
+    newClient.contactInfo = "";
+    newClient.medicalHistory = {
+        pastIllnesses: [],
+        surgeries: [],
+        medications: [],
+        allergies: []
+    };
+    obj = newClient;
+  }
+    Account.register(new Account({ username : username, role: role, profile: obj }), password, (err, account) => {
         if (err) {
             res.send(err);
             return;
         }
         try {
-          const User_ID = Math.floor(Math.random() * 1000000);
-          const newClient = new Patient
-          newClient.account_id = User_ID;
-          newClient.nickname = User_ID;
-          newClient.save();
-          //res.status(201).json(savedUser);
+          console.log(obj);
+          obj.save();
         } catch (error) {
           res.status(404).json({ error: error.message });
         }
-        res.send('User created');
-  
-        //passport.authenticate('local')(req, res, () => {
-        //    req.session.save((err) => {
-        //        if (err) {
-        //            return next(err);
-        //        }
-                //res.status(201).json(savedUser);
-        //        res.send('User created');
-                //res.redirect('/');
-        //    });
-        //});
+        res.json({ success: true, error: null });
     });
     // Логика функции 1
 }

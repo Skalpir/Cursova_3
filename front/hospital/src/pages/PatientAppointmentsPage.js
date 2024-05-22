@@ -124,7 +124,6 @@ const PatientAppointmentsPage = () => {
         medications: [],
         allergies: [],
       },
-      account_id: "1",
     };
   };
 

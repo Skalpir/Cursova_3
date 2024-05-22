@@ -2,6 +2,7 @@ import PatientCard from "../components/PatientCard";
 import AppointmentCard from "../components/AppointmentCard";
 import PatientDTO from "../models/PatientDTO";
 import AppWrapper from "../containers/AppWrapper";
+import Api from "easy-fetch-api";
 
 function PatientList() {
     const patients = [

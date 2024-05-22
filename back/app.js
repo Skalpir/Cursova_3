@@ -13,6 +13,8 @@ const fileURLToPath = require("url");
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var session = require('express-session');
+const cookieParser = require('cookie-parser')
 
 
 //const ___dirname = dirname(fileURLToPath(import.meta.url))
@@ -48,6 +50,22 @@ function connectionToDb(cb) {
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser('thisisyourappsecret'))
+app.use(
+    session({
+      
+      name: 'session',
+      keys: ['thisisyourappsecret'],
+      secure: false,
+      cookie: {
+        httpOnly: false,
+        //secure: true, // enable in production
+        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      },
+    })
+  )
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 // Routes

@@ -1,6 +1,6 @@
 // Подключение к MongoDB
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/hospital', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://172.30.60.96:27017/hospital', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Схема для пациентов
 const patientSchema = new mongoose.Schema({

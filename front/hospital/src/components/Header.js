@@ -1,9 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Session from "./Session";
 import { ReactComponent as LogoSVG } from "../styles/logo.svg";
 
 function Header() {
   const user = Session.getUserData();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    Session.logout();
+    navigate("/");
+  };
 
   return (
     <header class="p-3 text-bg-dark">
@@ -54,16 +61,16 @@ function Header() {
                 <a href="/profile" class="btn btn-outline-light me-2">
                   Profile
                 </a>
-                <a href="#" class="btn btn-warning">
+                <a href="#" class="btn btn-warning" onClick={logout}>
                   Logout
                 </a>
               </div>
             ) : (
               <div class="d-flex align-items-center">
-                <a href="#" class="btn btn-outline-light me-2">
+                <a href="/login" class="btn btn-outline-light me-2">
                   Login
                 </a>
-                <a href="#" class="btn btn-warning">
+                <a href="/register" class="btn btn-warning">
                   Sign-up
                 </a>
               </div>
