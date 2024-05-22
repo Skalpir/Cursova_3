@@ -84,8 +84,8 @@ function PatientCard({ patient }) {
             </div>
           </div>
           <div className="col-sm-4 d-flex flex-column justify-content-center">
-            <button className="btn btn-primary mb-3 flex-grow-1" onClick={handleScheduleAppointment}>Назначить встречу</button>
-            <button className="btn btn-secondary flex-grow-1" onClick={() => navigate(`/patients/${patientDTO.account_id}`, { state: { patient } })}>Редактировать</button>
+            <button className="btn btn-primary mb-3 flex-grow-1" onClick={handleScheduleAppointment}>Призначити зустріч</button>
+            <button className="btn btn-secondary flex-grow-1" onClick={() => navigate(`/patients/${patientDTO.account_id}`, { state: { patient } })}>Редагувати</button>
           </div>
         </div>
       </div>

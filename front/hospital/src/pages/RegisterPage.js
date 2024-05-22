@@ -46,10 +46,10 @@ function RegistrationPage() {
           <div className="col-md-6">
             <div className="card">
               <div className="card-body">
-                <h5 className="card-title">Регистрация</h5>
+                <h5 className="card-title">Регестрація</h5>
                 <form onSubmit={handleSubmit}>
                   <div className="form-group">
-                    <label htmlFor="username">Имя пользователя</label>
+                    <label htmlFor="username">Ім'я користувача</label>
                     <input
                       type="text"
                       className="form-control  border-dark"
@@ -88,19 +88,19 @@ function RegistrationPage() {
                         className="form-check-input border-dark"
                       />
                       <label htmlFor="role" className="form-check-label">
-                        Я врач
+                        Я лікар
                       </label>
                     </div>
                   </div>
                   <button type="submit" className="btn btn-primary">
-                    Зарегистрироваться
+                    Зарегеструватись
                   </button>
                 </form>
                 {error && (
                   <div className="alert alert-danger mt-3">{error}</div>
                 )}
                 <p className="mt-3">
-                  Уже есть аккаунт? <Link to="/login">Войти</Link>
+                  Уже маєте аккаунт? <Link to="/login">Увійти</Link>
                 </p>
               </div>
             </div>

@@ -48,10 +48,10 @@ function LoginPage() {
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
-              <h5 className="card-title">Вход</h5>
+              <h5 className="card-title">Вхід</h5>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label htmlFor="username">Имя пользователя</label>
+                  <label htmlFor="username">Ім'я користувача</label>
                   <input
                     type="text"
                     className="form-control"
@@ -77,7 +77,7 @@ function LoginPage() {
                 </button>
               </form>
               <p className="mt-3">
-                Еще нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
+                Ще немає аккаунта? <Link to="/register">Зарегеструватись</Link>
               </p>
             </div>
           </div>

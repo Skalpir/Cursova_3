@@ -95,7 +95,7 @@ function UserProfileEditor() {
           <div className="col-md-8">
             <div className="card mb-3">
               <div className="card-body">
-                <h5 className="card-title">Редактирование данных пользователя</h5>
+                <h5 className="card-title">Редагування данних користувача</h5>
                 <form onSubmit={handleSubmit}>
                   <div className="form-group mb-3">
                     <label htmlFor="firstName">Имя</label>
@@ -109,7 +109,7 @@ function UserProfileEditor() {
                     />
                   </div>
                   <div className="form-group mb-3">
-                    <label htmlFor="lastName">Фамилия</label>
+                    <label htmlFor="lastName">Призвище</label>
                     <input
                       type="text"
                       className="form-control"
@@ -120,7 +120,7 @@ function UserProfileEditor() {
                     />
                   </div>
                   <div className="form-group mb-3">
-                    <label htmlFor="nickname">Никнейм</label>
+                    <label htmlFor="nickname">Нікнейм</label>
                     <input
                       type="text"
                       className="form-control"
@@ -131,7 +131,7 @@ function UserProfileEditor() {
                     />
                   </div>
                   <div className="form-group mb-3">
-                    <label htmlFor="dateOfBirth">Дата рождения</label>
+                    <label htmlFor="dateOfBirth">Дата народження</label>
                     <input
                       type="date"
                       className="form-control"
@@ -142,7 +142,7 @@ function UserProfileEditor() {
                     />
                   </div>
                   <div className="form-group mb-3">
-                    <label htmlFor="gender">Пол</label>
+                    <label htmlFor="gender">Стать</label>
                     <select
                       className="form-control"
                       id="gender"
@@ -150,12 +150,12 @@ function UserProfileEditor() {
                       value={formData.gender}
                       onChange={handleChange}
                     >
-                      <option value="male">Мужской</option>
-                      <option value="female">Женский</option>
+                      <option value="male">Чоловічий</option>
+                      <option value="female">Жіночій</option>
                     </select>
                   </div>
                   <div className="form-group mb-3">
-                    <label htmlFor="contactInfo">Контактная информация</label>
+                    <label htmlFor="contactInfo">Контактна інформація</label>
                     <input
                       type="text"
                       className="form-control"
@@ -165,9 +165,9 @@ function UserProfileEditor() {
                       onChange={handleChange}
                     />
                   </div>
-                  <h6 className="mt-4">Медицинская история</h6>
+                  <h6 className="mt-4">Медицинска історія</h6>
                   <div className="form-group mb-3">
-                    <label htmlFor="pastIllnesses">Прошлые заболевания (разделяйте запятой)</label>
+                    <label htmlFor="pastIllnesses">Минулі захворювання (розділяйте комою)</label>
                     <input
                       type="text"
                       className="form-control"
@@ -178,7 +178,7 @@ function UserProfileEditor() {
                     />
                   </div>
                   <div className="form-group mb-3">
-                    <label htmlFor="surgeries">Операции (разделяйте запятой)</label>
+                    <label htmlFor="surgeries">Операції (роздійляте комою)</label>
                     <input
                       type="text"
                       className="form-control"
@@ -189,7 +189,7 @@ function UserProfileEditor() {
                     />
                   </div>
                   <div className="form-group mb-3">
-                    <label htmlFor="medications">Принимаемые препараты (разделяйте запятой)</label>
+                    <label htmlFor="medications">Приймаємі препарати (розділяйте комою)</label>
                     <input
                       type="text"
                       className="form-control"
@@ -200,7 +200,7 @@ function UserProfileEditor() {
                     />
                   </div>
                   <div className="form-group mb-3">
-                    <label htmlFor="allergies">Аллергии (разделяйте запятой)</label>
+                    <label htmlFor="allergies">Аллергії (розділяйте комою)</label>
                     <input
                       type="text"
                       className="form-control"
@@ -211,9 +211,9 @@ function UserProfileEditor() {
                     />
                   </div>
                   <button type="submit" className="btn btn-primary">
-                    Сохранить
+                    Зберігти
                   </button>
-                  {done && <p className="text-success mt-3">Данные успешно сохранены</p>}
+                  {done && <p className="text-success mt-3">Данні успішно збережено</p>}
                 </form>
               </div>
             </div>
