@@ -89,14 +89,14 @@ function PatientAddAppointment({ patient }) {
   return (
     <div className="card mb-3">
       <div className="card-body">
-        <h5 className="card-title">Запись на приём</h5>
+        <h5 className="card-title">Запис на прийом</h5>
         <form>
           <div className="form-group mb-3">
-            <p>Врач:</p>
+            <p>Лікар:</p>
             <p>{doctor.firstName} {doctor.lastName}</p>
           </div>
           <div className="form-group mb-3">
-            <label htmlFor="appointmentDate">Дата приёма:</label>
+            <label htmlFor="appointmentDate">Дата прийому:</label>
             <input
               type="date"
               className="form-control"
@@ -113,7 +113,7 @@ function PatientAddAppointment({ patient }) {
               value={procedure}
               onChange={handleProcedureChange}
             >
-              <option value="">Выберите процедуру</option>
+              <option value="">Вибиріть процедуру</option>
               {procedures.map((procedure) => (
                 <option key={procedure} value={procedure}>
                   {procedure}
@@ -126,7 +126,7 @@ function PatientAddAppointment({ patient }) {
             className="btn btn-primary mb-3"
             onClick={saveAppointment}
           >
-            Записаться на приём
+            Записать на прийом
           </button>
         </form>
       </div>
