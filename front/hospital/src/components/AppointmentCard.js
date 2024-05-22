@@ -10,8 +10,10 @@ function AppointmentCard({ appointment }) {
     return appointmentDTO.doctor;
   };
   const closeAppointment = () => {
-    // Close appointment
+    
   };
+  const patient = getPatient();
+  const doctor = getDoctor();
 
   return (
     <div className="card mb-3">
@@ -29,13 +31,7 @@ function AppointmentCard({ appointment }) {
               <div className="col-sm-4 text-right font-weight-bold">
                 Patient:
               </div>
-              <div className="col-sm-8">{getPatient()}</div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-sm-4 text-right font-weight-bold">
-                Doctor:
-              </div>
-              <div className="col-sm-8">{getDoctor()}</div>
+              <div className="col-sm-8">{patient.firstName} {patient.lastName}</div>
             </div>
             <div>
               <h6 className="card-subtitle mb-2 mt-3 text-muted">Procedures</h6>

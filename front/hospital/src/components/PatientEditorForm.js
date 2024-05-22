@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PatientDTO from '../models/PatientDTO'; // Подключаем класс PatientDTO
+import Api from 'easy-fetch-api'; 
 
 function PatientEditorForm({ patient }) {
   // Создаем состояние для хранения данных о пациенте
@@ -29,7 +30,28 @@ function PatientEditorForm({ patient }) {
   // Функция для сохранения изменений
   const saveChanges = () => {
     // Здесь можно добавить логику сохранения данных, например, отправку на сервер
-    console.log("Измененные данные пациента:", editedPatient);
+    const updatedFields = 
+    {
+      nickname: editedPatient.nickname,
+      firstName: editedPatient.firstName,
+      lastName: editedPatient.lastName,
+      dateOfBirth: editedPatient.date,
+      gender: editedPatient.gender,
+      contactInfo: editedPatient.contactInfo,
+      medicalHistory: {
+        pastIllnesses: editedPatient.medicalHistory.pastIllnesses,
+        surgeries: editedPatient.medicalHistory.surgeries,
+        medications: editedPatient.medicalHistory.medications,
+        allergies: editedPatient.medicalHistory.allergies
+      }
+    }
+    Api.setBaseUrl('http://localhost:3000');
+    Api.patch({
+      url: '/api/patient/' + patient._id,
+      data: updatedFields,
+    }).then((response) => {
+      console.log(response);
+    });
   };
 
   return (

@@ -1,15 +1,38 @@
 import React, { useState } from 'react';
+import Api from 'easy-fetch-api';
 
 function AppointmentForm({ patient, doctor }) {
   const [appointmentDate, setAppointmentDate] = useState('');
   const [procedure, setProcedure] = useState('');
-  const procedures = ["Щепленя від 'Кашлюк' ", "Щепленя від 'дифтерія і правець'", "Щепленя від 'Кір, Паротит, Краснуха' ", "Щеплення від 'поліомеліт' "];
+   const procedures = ["Щепленя від 'Кашлюк' ", "Щепленя від 'дифтерія і правець'", "Щепленя від 'Кір, Паротит, Краснуха' ", "Щеплення від 'поліомеліт' "];
+
   const descriptions = {
-      "Щепленя від 'Кашлюк'": "Щепленя від 'Кашлюк'",
-      "Щепленя від 'дифтерія і правець'": "Щепленя від 'дифтерія і правець'",
-      "Щепленя від 'Кір, Паротит, Краснуха'": "Щепленя від 'Кір, Паротит, Краснуха'",
-      "Щеплення від 'поліомеліт'": "Щеплення від 'поліомеліт'"
-  };
+    "Щепленя від 'Кашлюк' ": {
+      name: "Щепленя від 'Кашлюк' ",
+      description: "Щепленя від 'Кашлюк'",
+      duration: 30,
+      cost: 1000
+    },
+    "Щепленя від 'дифтерія і правець'": {
+      name: "Щепленя від 'дифтерія і правець'",
+      description: "Щепленя від 'дифтерія і правець'",
+      duration: 60,
+      cost: 2000
+    },
+    "Щепленя від 'Кір, Паротит, Краснуха'": {
+      name: "Щепленя від 'Кір, Паротит, Краснуха'",
+      description: "Щепленя від 'Кір, Паротит, Краснуха'",
+      duration: 45,
+      cost: 1500
+    },
+    "Щеплення від 'поліомеліт'": {
+      name: "Щеплення від 'поліомеліт'",
+      description: "Щеплення від 'поліомеліт'",
+      duration: 90,
+      cost: 3000
+    }
+  }
+
 
   // Функция для обработки изменения даты приёма
   const handleDateChange = (event) => {
@@ -22,13 +45,22 @@ function AppointmentForm({ patient, doctor }) {
 
   // Функция для обработки сохранения записи
   const saveAppointment = () => {
-    const appointmentDetails = {
-      patient,
-      doctor,
-      appointmentDate
-    };
-    // Здесь можно добавить логику сохранения данных, например, отправку на сервер
-    console.log("Детали записи на приём:", appointmentDetails);
+   const newAppointment = {}
+    console.log(patient);
+    newAppointment.patient_id = patient._id;
+    newAppointment.doctor_id = doctor.profile._id;
+    newAppointment.dateTime = appointmentDate;
+    newAppointment.procedures = [descriptions[procedure]];
+    console.log("Детали записи на приём:", newAppointment);
+    // Отправка данных на сервер
+    Api.setBaseUrl('http://localhost:3000');
+    Api.post({
+      url: '/api/appointment/',
+      data: newAppointment,
+      callback: (response) => {
+        console.log('Запись на приём сохранена:', response);
+      }
+    });
   };
 
   return (
@@ -42,7 +74,7 @@ function AppointmentForm({ patient, doctor }) {
           </div>
           <div className="form-group mb-3">
             <p>Лікар:</p>
-            <p>{doctor.name}</p>
+            <p>{doctor.profile.firstName} {doctor.profile.lastName}</p>
           </div>
           <div className="form-group mb-3">
             <label htmlFor="appointmentDate">Дата прийому:</label>

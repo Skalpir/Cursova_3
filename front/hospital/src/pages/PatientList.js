@@ -38,7 +38,7 @@ function PatientList() {
                 <div className="col-sm-8">
                     <div className="me-3 ms-3 mt-3">
                         {patients.map((patient) => (
-                            <PatientCard key={patient.account_id} patient={PatientDTO.fromModel(patient)} />
+                            <PatientCard key={patient.account_id} patient={patient} />
                         ))}
                     </div>
                 </div>

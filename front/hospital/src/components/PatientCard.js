@@ -7,10 +7,10 @@ function PatientCard({ patient }) {
   const patientDTO = PatientDTO.fromModel(patient);
   const navigate = useNavigate();
   const user = Session.getUserData();
-  const doctor = { name: user.name, id: user.id };  // Добавляем id врача
+  const doctor  = user;  // Добавляем id врача
 
   const handleScheduleAppointment = () => {
-    navigate('/schedule-appointment', { state: { patient: patientDTO, doctor } });
+    navigate('/schedule-appointment', { state: { patient: patient, doctor } });
   };
 
   return (
