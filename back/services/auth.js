@@ -56,7 +56,6 @@ const newUser = (req,res) => {
         }
         res.json({ success: true, error: null });
     });
-    // Логика функции 1
 }
 
 const auth = (res,req) => {
@@ -70,7 +69,6 @@ const auth = (res,req) => {
                 res.redirect('/');
             });
         });
-    // Логика функции 2
 }
 
 const login = (res,req) => {}
@@ -78,22 +76,17 @@ const logout = (res,req) => {}
 const deleteOne = async (res,req) => 
 {
     try {
-        // Проверяем, есть ли пользователь
         if (!req.user) {
           res.send('User not found');
           return;
         }
-    
-        // Удаляем пользователя
+
         await Account.deleteOne({ username: req.user.username });
     
-        // Разлогиниваем пользователя
         req.logout();
     
-        // Сохраняем сессию (если используется сессионное хранилище)
         await req.session.save();
     
-        // Если используется Passport, разлогиниваем пользователя
         passport.authenticate('local')(req, res, () => {
           res.send('User deleted');
         });

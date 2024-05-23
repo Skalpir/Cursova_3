@@ -1,10 +1,10 @@
-// Подключение к MongoDB
+// Connecting to MongoDB
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://172.30.60.96:27017/hospital', { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Схема для пациентов
+// Patient schema
 const patientSchema = new mongoose.Schema({
-    nickname: String, // почта или какой нить уникальный индефикатор, хотя никнейм звутчи ТУПО лучше юзать случайные числа для ников юзеров
+    nickname: String, 
     firstName: String,
     lastName: String,
     dateOfBirth: Date,
@@ -15,12 +15,12 @@ const patientSchema = new mongoose.Schema({
         surgeries: [String],
         medications: [String],
         allergies: [String],
-        // Другие поля
+        
     },
     account_id : String
 });
 
-// Схема для врачей
+// Doctor schema
 const doctorSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
@@ -30,39 +30,39 @@ const doctorSchema = new mongoose.Schema({
     dayOnDuty: Number
 });
 
-// Схема для приемов
+// Appoiment schema
 const appointmentSchema = new mongoose.Schema({
     dateTime: Date,
     patient: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient' },
     doctor: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' },
     status: String,
-    procedures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Procedure' }], // Поле для массива ObjectId
+    procedures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Procedure' }],
     emailStatus : { type: String, default: "no" },
 
     
 });
 
-// Схема для отчетов о приемах.
+// Appoiment report schema
 const appointmentReportSchema = new mongoose.Schema({
     appointment: { type: mongoose.Schema.Types.ObjectId, ref: 'Appointment' },
     examinationResults: String,
-    prescriptions: [String], //рецепты на таблетки
-    recommendations: String, // описание рекомендации
-    diagnosis: String // диагноз
+    prescriptions: [String], 
+    recommendations: String,
+    diagnosis: String 
 });
 
-// Схема для медицинских процедур
+// Procedure schema
 const procedureSchema = new mongoose.Schema({
     name: String,
     description: String,
-    duration: Number, // продолжительность
+    duration: Number, 
     cost: Number,
     doctor_id : { type: mongoose.Schema.Types.ObjectId, ref: 'Patient' },
     patient_id : { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' },
     status : Boolean,
 });
 
-// Схема для отделений
+// Departament Schema
 const departmentSchema = new mongoose.Schema({
     name: String,
     description: String,
@@ -70,7 +70,7 @@ const departmentSchema = new mongoose.Schema({
     patients: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Patient' }]
 });
 
-// Схема для рецептов
+// Prescription Schema
 const prescriptionSchema = new mongoose.Schema({
     medication: String,
     dosage: String,
@@ -79,9 +79,7 @@ const prescriptionSchema = new mongoose.Schema({
     patient: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient' }
 });
 
-//Схема дежурства врачей
 
-// Экспорт схем для использования в других файлах
 module.exports = {
     Patient: mongoose.model('Patient', patientSchema),
     Doctor: mongoose.model('Doctor', doctorSchema),

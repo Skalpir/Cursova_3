@@ -14,7 +14,7 @@ router.post("/register", (req, res, next) => {
 });
 
 
-
+//example how login in passport js
 /*router.post("/login", passport.authenticate("local"), (req, res) => {
   req.session.save((err) => {
     if (err) {
@@ -53,43 +53,32 @@ router.post("/login", (req, res, next) => {
 router.post("/logout", (req, res) => {
   req.logout((err) => {
     if (err) {
-      // Обработка ошибок, если они возникли при завершении сеанса
       return res.status(500).json({ error: err.message });
     }
     res.send("logOut");
   });
 });
 
-//принимает username из body в поле usename
+//username and body in req.body
 router.post("/deleteOne", async (req, res, next) => {
   try {
-    // Проверяем, есть ли пользователь
     if (!req.user) {
       res.send("User not found");
       return;
     }
 
-    // Удаляем пользователя
     await Account.deleteOne({ username: req.user.username });
 
-    // Разлогиниваем пользователя
     req.logout();
 
-    // Сохраняем сессию (если используется сессионное хранилище)
     await req.session.save();
 
-    // Если используется Passport, разлогиниваем пользователя
     passport.authenticate("local")(req, res, () => {
       res.send("User deleted");
     });
   } catch (error) {
     res.send(error);
   }
-});
-
-// Определение маршрутов
-router.get("/", (req, res) => {
-  res.send("meow");
 });
 
 router.get("/profile", (req, res) => {

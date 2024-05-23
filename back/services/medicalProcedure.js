@@ -1,5 +1,3 @@
-// то ради чего затевалась возня ПРИВИВКИ!!!
-
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
@@ -9,7 +7,6 @@ const bodyParser = require('body-parser');
 const { Procedure } = require('../models/UserModel');
 const jsonParser = express.json();
 
-//найти процедуру по id
 const info = async (id, res) => {
 
 try {
@@ -25,22 +22,17 @@ res.send(Proced)
 }
 
 const updateById = async (id,body, res) =>{
-    //console.log(id);
     const updatedFields = body;
-    //console.log(updatedFields)
     const NeObjectId = id;
     const objectId = new mongoose.Types.ObjectId(NeObjectId);
     let ObjectUserId;
     try{ 
-    //console.log(account_id)
     const Object = await Procedure.find({ "_id": objectId}); 
-    //console.log(Object)
     ObjectUserId = Object[0]._id;
   }
     catch (error) {console.log(error)} 
     console.log(ObjectUserId)
     try {
-      // Найти продукт по ID и обновить его поля
       const updatedUser = await Procedure.findByIdAndUpdate(
         ObjectUserId,
         { $set: updatedFields },

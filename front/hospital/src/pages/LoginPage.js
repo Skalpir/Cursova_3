@@ -23,9 +23,9 @@ function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Здесь можно добавить логику отправки данных на сервер для входа
+
     console.log("Данные для входа:", formData);
-    // После отправки формы можно выполнить перенаправление на другую страницу
+
     Api.setBaseUrl("http://localhost:3000");
     Api.post({
       url: "/api/auth/login",
@@ -36,7 +36,7 @@ function LoginPage() {
         return setError(res.error || "Ошибка входа");
       }
       Session.setUserData(res.user);
-      // Перенаправление на главную страницу
+
         navigate("/");
     });
   };

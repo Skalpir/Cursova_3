@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import PatientDTO from '../models/PatientDTO'; // Подключаем класс PatientDTO
+import PatientDTO from '../models/PatientDTO';
 import Api from 'easy-fetch-api'; 
 
 function PatientEditorForm({ patient }) {
-  // Создаем состояние для хранения данных о пациенте
+  // creating state for patient data
   const [editedPatient, setEditedPatient] = useState(PatientDTO.fromModel(patient));
 
-  // Функция для обновления состояния при изменении данных пациента
+  // update state if patient data changed
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setEditedPatient({
@@ -15,7 +15,6 @@ function PatientEditorForm({ patient }) {
     });
   };
 
-  // Функция для обновления состояния медицинской истории
   const handleMedicalHistoryChange = (key, event) => {
     const { value } = event.target;
     setEditedPatient({
@@ -27,9 +26,7 @@ function PatientEditorForm({ patient }) {
     });
   };
 
-  // Функция для сохранения изменений
   const saveChanges = () => {
-    // Здесь можно добавить логику сохранения данных, например, отправку на сервер
     const updatedFields = 
     {
       nickname: editedPatient.nickname,
@@ -61,7 +58,7 @@ function PatientEditorForm({ patient }) {
         <form>
           <div className="row">
             <div className="col-md-6">
-              {/* Первая половина формы */}
+              {/* Перша половина форми */}
               <div className="form-group">
                 <label htmlFor="nickname">Нікнейм:</label>
                 <input type="text" className="form-control" id="nickname" name="nickname" value={editedPatient.nickname} onChange={handleInputChange} />
@@ -91,7 +88,7 @@ function PatientEditorForm({ patient }) {
               </div>
             </div>
             <div className="col-md-6">
-              {/* Вторая половина формы */}
+              {/* Друга половина форми */}
               <div className="form-group">
                 <label htmlFor="pastIllnesses">Минулі захворювання (розділяйте комою):</label>
                 <input type="text" className="form-control" id="pastIllnesses" name="pastIllnesses" value={editedPatient.medicalHistory.pastIllnesses.join(', ')} onChange={(e) => handleMedicalHistoryChange('pastIllnesses', e)} />

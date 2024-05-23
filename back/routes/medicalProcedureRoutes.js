@@ -1,17 +1,9 @@
-// medicalProcedureRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const MedProcedure = require("../services/medicalProcedure")
-
-// Маршрут для создания новой медицинской процедуры
-//router.post('/', (req, res) => {
-    // Логика создания новой медицинской процедуры
-//});
-
-// Маршрут для получения списка всех медицинских процедур
+//example
 router.get('/', (req, res) => {
-    // Логика получения списка всех медицинских процедур
+
 });
 
 router.get('/:id', (req, res) => {
@@ -20,10 +12,9 @@ router.get('/:id', (req, res) => {
     //console.log(id)
 
     MedProcedure.infoById(id,res)
-    // Логика обновления информации о приеме
 });
 
-// Маршрут для обновления информации о медицинской процедуре
+// update procedure by _id
 router.patch('/:id', (req, res) => {
 
     let = id = req.params.id;
@@ -31,13 +22,6 @@ router.patch('/:id', (req, res) => {
     //console.log(id)
 
     MedProcedure.UpdateById(id,req.body,res)
-
-    // Логика обновления информации о медицинской процедуре
 });
-
-// Маршрут для удаления медицинской процедуры
-//router.delete('/:id', (req, res) => {
-    // Логика удаления медицинской процедуры
-//});
 
 module.exports = router;

@@ -26,7 +26,7 @@ function RegistrationPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     Api.setBaseUrl("http://localhost:3000");
-    // Здесь можно добавить логику отправки данных на сервер для регистрации
+
     Api.post({
       url: "/api/auth/register",
       data: formData,

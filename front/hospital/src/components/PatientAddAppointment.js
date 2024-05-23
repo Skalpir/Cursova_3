@@ -69,21 +69,20 @@ function PatientAddAppointment({ patient }) {
     newAppointment.procedures = [descriptions[procedure]];
 
 
-    console.log("Детали записи на приём:", newAppointment);
+    console.log("Деталі запису на прийом:", newAppointment);
 
     Api.post({
       url: '/api/appointment/',
       data: newAppointment,
       callback: (response) => {
-        console.log('Запись на приём сохранена:', response);
-        // Можно добавить логику для уведомления пользователя об успешном сохранении
+        console.log('Запис на прийом збережений:', response);
         navigate('/appointments');
       }
     });
   };
 
   if (!doctor) {
-    return <p>Загрузка данных врача...</p>;
+    return <p>Завантаження данних лікаря...</p>;
   }
 
   return (

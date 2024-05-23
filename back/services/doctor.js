@@ -8,6 +8,7 @@ const { Doctor } = require("../models/UserModel");
 const { sendEmail } = require("../mailjet/mailjet");
 const jsonParser = express.json();
 
+//Example how update fields in object by _id
 /*
 const updateById = async (req, body, res) => {
   let account_id = req;
@@ -45,8 +46,8 @@ const infoByField = async (params, res) => {
   let = account_id = account_id.slice(1);
   //console.log(updatedFields)
 
-  const fieldName = "customFieldName"; // Значение поля, по которому вы хотите искать
-  const value = "значение_поля_для_поиска"; // Значение, по которому вы хотите выполнить поиск
+  const fieldName = "customFieldName"; 
+  const value = "searching_field"; 
   const query = {};
   query[fieldName] = value;
 
@@ -82,9 +83,6 @@ const infoById = async (id, res) => {
 };
 
 const allUsers = async (res) => {
-  Myname = "Андрій";
-  email = "andryxa1049@gmail.com";
-  sendEmail(Myname, email);
   try {
     const users = await Doctor.find({});
     res.json(users);
@@ -103,7 +101,7 @@ async function insertDoctors() {
       contactInfo: "john.doe@example.com",
       doctor_id: "DOC1",
       dayOnDuty: 1,
-    }, // Понедельник
+    }, // Monday
     {
       firstName: "Jane",
       lastName: "Smith",
@@ -112,7 +110,7 @@ async function insertDoctors() {
       contactInfo: "jane.smith@example.com",
       doctor_id: "DOC2",
       dayOnDuty: 2,
-    }, // Вторник
+    }, // Tuesday
     {
       firstName: "Jim",
       lastName: "Brown",
@@ -121,7 +119,7 @@ async function insertDoctors() {
       contactInfo: "jim.brown@example.com",
       doctor_id: "DOC3",
       dayOnDuty: 3,
-    }, // Среда
+    }, // Wednesday
     {
       firstName: "Jake",
       lastName: "White",
@@ -130,7 +128,7 @@ async function insertDoctors() {
       contactInfo: "jake.white@example.com",
       doctor_id: "DOC4",
       dayOnDuty: 4,
-    }, // Четверг
+    }, // Thursday
     {
       firstName: "Julie",
       lastName: "Black",
@@ -139,7 +137,7 @@ async function insertDoctors() {
       contactInfo: "julie.black@example.com",
       doctor_id: "DOC5",
       dayOnDuty: 5,
-    }, // Пятница
+    }, // Friday
     {
       firstName: "Jack",
       lastName: "Green",
@@ -148,7 +146,7 @@ async function insertDoctors() {
       contactInfo: "jack.green@example.com",
       doctor_id: "DOC6",
       dayOnDuty: 6,
-    }, // Суббота
+    }, // Saturday
     {
       firstName: "Jill",
       lastName: "Blue",
@@ -157,7 +155,7 @@ async function insertDoctors() {
       contactInfo: "jill.blue@example.com",
       doctor_id: "DOC7",
       dayOnDuty: 0,
-    }, // Воскресенье
+    }, // Sunday
   ];
 
   try {

@@ -7,13 +7,6 @@ const bodyParser = require('body-parser');
 const jsonParser = express.json();
 const {Prescription, Patient, Doctor} = require("../models/UserModel");
 
-
-//medication: String,
-//dosage: String,
-//duration: String,
-//doctor: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' },
-//patient: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient' }
-
 const create = async (patient_id,doctor_id,body,res) => 
     {
         try {
@@ -36,8 +29,6 @@ const create = async (patient_id,doctor_id,body,res) =>
         }    }
 const update = async (id,body,res) => 
     {
-
-        // Найти по ID и обновить его поля
         try {
             
             const updatedUser = await Prescription.findByIdAndUpdate(
@@ -56,8 +47,6 @@ const update = async (id,body,res) =>
             res.status(500).json({ error: 'Error updating' });
           }
     }
-
-
 
 const find = async (patient_id,res) => 
     {
